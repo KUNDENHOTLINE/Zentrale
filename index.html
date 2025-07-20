@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="de">
-<meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNDENHOTLINE</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     <style>
-        }
-
         :root {
-            --deep-blue: #050a1e;
-            --menu-bg: rgba(12, 25, 55, 0.95);
-            --text-white: rgba(255, 255, 255, 0.98);
+            --deep-blue: #040b1a;
+            --menu-bg: rgba(8, 22, 48, 0.98);
+            --text-white: rgba(255, 255, 255, 0.95);
+        }
 
         * {
             margin: 0;
@@ -26,31 +26,36 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            font-family: 'BoogieStyle', 'Impact', sans-serif;
+            font-family: 'Cinzel Decorative', serif;
+        }
+
+        .container {
             position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .title-container {
             position: relative;
             z-index: 1;
-            transition: filter 0.5s ease-out;
-            text-align: center;
-            padding: 2rem;
+            transition: filter 0.6s ease;
         }
 
         .title {
-            font-size: clamp(3rem, 10vw, 7rem);
-            font-weight: bold;
-            letter-spacing: 3px;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 700;
+            letter-spacing: 4px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             perspective: 1000px;
             transform-style: preserve-3d;
-            gap: 0.15em;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
-            position: relative;
+            gap: 0.2em;
+        }
 
         .title span {
             display: inline-block;
@@ -60,26 +65,19 @@
             transition: transform 0.3s ease;
         }
 
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 5;
-            display: none;
+        .title span:hover {
+            transform: translateY(-5px) scale(1.1);
         }
 
         .menu {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: translate(-50%, -50%) scale(0.9);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 10;
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2;
             width: min(90%, 500px);
             pointer-events: none;
         }
@@ -89,31 +87,28 @@
             background: var(--menu-bg);
             border-radius: 16px;
             padding: 3rem 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(2px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .menu-item {
-            margin: 1.5rem 0;
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin: 1.8rem 0;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             cursor: pointer;
-            padding: 0.8rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             border-radius: 8px;
             transform: scale(0);
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
-            font-weight: bold;
         }
 
         .menu-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.05) !important;
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .blur-active .title-container {
-            filter: blur(8px);
+        .active .title-container {
+            filter: blur(6px);
         }
 
         .menu.active {
@@ -138,9 +133,7 @@
                 transform: translateY(0) rotateX(0) rotateY(0);
             }
             50% {
-                transform: translateY(calc(-1 * var(--float-height))) 
-                          rotateX(var(--rotate-x)) 
-                          rotateY(var(--rotate-y));
+                transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
             }
         }
 
@@ -148,31 +141,30 @@
         @media (max-width: 768px) {
             .title {
                 gap: 0.1em;
-                letter-spacing: 1px;
+                letter-spacing: 2px;
             }
             .menu-list {
                 padding: 2rem 1rem;
             }
             .menu-item {
-                margin: 1.2rem 0;
-                padding: 0.6rem 1rem;
+                margin: 1.4rem 0;
+                padding: 0.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="title-container" id="titleContainer">
-        <h1 class="title" id="title">KUNDENHOTLINE</h1>
-    </div>
-
-    <div class="menu-overlay" id="menuOverlay"></div>
-    
-    <div class="menu" id="menu">
-        <ul class="menu-list">
-            <li class="menu-item">Impressum</li>
-            <li class="menu-item">Filmstube</li>
-            <li class="menu-item">Über mich</li>
-        </ul>
+    <div class="container">
+        <div class="title-container" id="titleContainer">
+            <h1 class="title" id="title">KUNDENHOTLINE</h1>
+        </div>
+        <div class="menu" id="menu">
+            <ul class="menu-list">
+                <li class="menu-item">Impressum</li>
+                <li class="menu-item">Filmstube</li>
+                <li class="menu-item">Über mich</li>
+            </ul>
+        </div>
     </div>
 
     <script>
@@ -180,8 +172,7 @@
             const title = document.getElementById('title');
             const titleContainer = document.getElementById('titleContainer');
             const menu = document.getElementById('menu');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const body = document.body;
+            const container = document.querySelector('.container');
             
             // Split the title into individual letters
             const text = title.textContent;
@@ -193,10 +184,10 @@
                 
                 // Create unique floating animations for each letter
                 const duration = 3 + Math.random() * 2;
-                const delay = i * 0.12;
-                const floatHeight = 10 + Math.random() * 15;
-                const rotateX = Math.random() * 15 - 7.5;
-                const rotateY = Math.random() * 15 - 7.5;
+                const delay = i * 0.15;
+                const floatHeight = 10 + Math.random() * 10;
+                const rotateX = Math.random() * 10 - 5;
+                const rotateY = Math.random() * 10 - 5;
                 
                 span.style.animation = `
                     float ${duration}s ease-in-out ${delay}s infinite
@@ -208,33 +199,11 @@
                 title.appendChild(span);
             }
             
-            // Open menu when title is clicked
-            title.addEventListener('click', (e) => {
-                e.stopPropagation();
-                body.classList.add('blur-active');
-                menuOverlay.style.display = 'block';
-                menu.classList.add('active');
+            // Add click event to toggle menu
+            title.addEventListener('click', () => {
+                container.classList.toggle('active');
+                menu.classList.toggle('active');
             });
-            
-            // Close menu when clicking outside
-            menuOverlay.addEventListener('click', closeMenu);
-            document.addEventListener('click', (e) => {
-                if (!menu.contains(e.target) && e.target !== title) {
-                    closeMenu();
-                }
-            });
-            
-            function closeMenu() {
-                body.classList.remove('blur-active');
-                menuOverlay.style.display = 'none';
-                menu.classList.remove('active');
-                
-                // Reset menu items for next opening
-                document.querySelectorAll('.menu-item').forEach(item => {
-                    item.style.transform = 'scale(0)';
-                    item.style.opacity = '0';
-                });
-            }
         });
     </script>
 </body>

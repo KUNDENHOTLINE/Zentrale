@@ -43,21 +43,130 @@
             text-align: center;
             padding: 2rem;
         }
-
-        .title {
+ .title {
             font-size: clamp(3rem, 10vw, 7rem);
             font-weight: bold;
             letter-spacing: 3px;
             cursor: pointer;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Changed from wrap to nowrap */
             perspective: 1000px;
             transform-style: preserve-3d;
             gap: 0.15em;
             text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
             position: relative;
+            font-family: 'Bungee', 'BoogieStyle', 'Impact', sans-serif; /* Added Bungee font */
+            white-space: nowrap; /* Prevent wrapping */
+            overflow-x: auto; /* Allow horizontal scrolling if needed */
+            overflow-y: hidden;
+            padding-bottom: 10px; /* Space for scrollbar if appears */
+
+       }
+
+        /* Add this new particle class */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--particle-color);
+            pointer-events: none;
+            animation: float-particle linear infinite;
+            opacity: 0;
+         }
+
+        @keyframes float-particle {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(var(--move-x), var(--move-y));
+                opacity: 0;
+             }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .title {
+                gap: 0.1em;
+                letter-spacing: 1px;
+                font-size: clamp(2.5rem, 8vw, 4rem); /* Adjusted for mobile */
+                padding: 0 10px; /* Add some padding */
+                justify-content: flex-start; /* Start from left */
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+                <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Previous JavaScript remains unchanged until the end
+            
+            // Add particle creation function
+            function createParticles() {
+                if (document.querySelector('.menu.active')) return;
+                
+                const particleCount = Math.floor(window.innerWidth / 50);
+                const colors = [
+                    'rgba(100, 150, 255, 0.3)',
+                    'rgba(150, 200, 255, 0.2)',
+                    'rgba(200, 225, 255, 0.15)'
+                ];
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Random properties
+                    const size = Math.random() * 5 + 2;
+                    const duration = Math.random() * 20000 + 10000;
+                    const delay = Math.random() * 5000;
+                    const startX = Math.random() * window.innerWidth;
+                    const startY = Math.random() * window.innerHeight;
+                    const moveX = (Math.random() - 0.5) * 200;
+                    const moveY = (Math.random() - 0.5) * 200;
+                    
+                    // Apply styles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${startX}px`;
+                    particle.style.top = `${startY}px`;
+                    particle.style.animationDuration = `${duration}ms`;
+                    particle.style.animationDelay = `${delay}ms`;
+                    particle.style.setProperty('--move-x', `${moveX}px`);
+                    particle.style.setProperty('--move-y', `${moveY}px`);
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    document.body.appendChild(particle);
+                    
+                    // Remove particle after animation completes
+                    setTimeout(() => {
+                        particle.remove();
+                    }, duration + delay);
+                }
+                
+                // Create new particles periodically
+                setTimeout(createParticles, 2000);
+            }
+            
+            // Start particle animation
+            createParticles();
+            
+            // Close menu when clicking outside - enhanced version
+            function handleClickOutside(e) {
+                if (!menu.contains(e.target) && e.target !== title) {
+                    closeMenu();
+                }
+            }
+            
+            // Update event listener to use the new function
+            menuOverlay.addEventListener('click', closeMenu);
+            document.addEventListener('click', handleClickOutside);
+        });
+            /* Rest of your existing media queries remain */
         }
+
 
         .title span {
             display: inline-block;

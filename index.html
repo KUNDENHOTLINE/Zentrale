@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUNDENHOTLINE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --deep-blue: #040b1a;
@@ -26,7 +26,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            font-family: 'Bungee', cursive; /* Updated font */
+            font-family: 'Cinzel Decorative', serif;
         }
 
         .container {
@@ -51,15 +51,10 @@
             cursor: pointer;
             display: flex;
             justify-content: center;
-            flex-wrap: nowrap; /* Changed to prevent wrapping */
+            flex-wrap: wrap;
             perspective: 1000px;
             transform-style: preserve-3d;
             gap: 0.2em;
-            white-space: nowrap; /* Ensure single line */
-            overflow-x: auto; /* Allow horizontal scrolling if needed */
-            padding-bottom: 10px; /* Space for scrollbar */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-            font-family: 'Bungee', cursive; /* Updated font */
         }
 
         .title span {
@@ -94,7 +89,6 @@
             padding: 3rem 2rem;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            font-family: 'Montserrat', sans-serif; /* Updated font */
         }
 
         .menu-item {
@@ -107,7 +101,6 @@
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
-            font-weight: 700;
         }
 
         .menu-item:hover {
@@ -149,9 +142,6 @@
             .title {
                 gap: 0.1em;
                 letter-spacing: 2px;
-                justify-content: flex-start; /* Align left on mobile */
-                padding-left: 20px; /* Add some padding */
-                padding-right: 20px;
             }
             .menu-list {
                 padding: 2rem 1rem;
@@ -164,7 +154,7 @@
     </style>
 </head>
 <body>
-    <div class="container" id="container">
+    <div class="container">
         <div class="title-container" id="titleContainer">
             <h1 class="title" id="title">KUNDENHOTLINE</h1>
         </div>
@@ -182,7 +172,7 @@
             const title = document.getElementById('title');
             const titleContainer = document.getElementById('titleContainer');
             const menu = document.getElementById('menu');
-            const container = document.getElementById('container');
+            const container = document.querySelector('.container');
             
             // Split the title into individual letters
             const text = title.textContent;
@@ -210,12 +200,11 @@
             }
             
             // Add click event to toggle menu
-            title.addEventListener('click', (e) => {
-                e.stopPropagation();
-                container.classList.add('active');
-                menu.classList.add('active');
-            });
-            
+            title.addEventListener('click', () => {
+                container.classList.toggle('active');
+                menu.classList.toggle('active');
+           });
+                
             // Close menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (!menu.contains(e.target) && e.target !== title) {

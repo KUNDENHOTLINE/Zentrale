@@ -203,20 +203,6 @@
             title.addEventListener('click', () => {
                 container.classList.toggle('active');
                 menu.classList.toggle('active');
-           });
-                
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!menu.contains(e.target) && e.target !== title) {
-                    container.classList.remove('active');
-                    menu.classList.remove('active');
-                    
-                    // Reset menu items for next opening
-                    document.querySelectorAll('.menu-item').forEach(item => {
-                        item.style.transform = 'scale(0)';
-                        item.style.opacity = '0';
-                    });
-                }
             });
         });
     </script>

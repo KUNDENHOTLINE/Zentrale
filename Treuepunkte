@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUNDENHOTLINE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a192f;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: filter 0.5s ease;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .title {
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+        }
+
+        .title span {
+            display: inline-block;
+            position: relative;
+        }
+
+        .menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            z-index: 10;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-list {
+            list-style: none;
+            background: rgba(16, 42, 87, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .menu-item {
+            margin: 1.5rem 0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .blur-effect {
+            filter: blur(5px);
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .menu-list {
+                padding: 1.5rem;
+            }
+            
+            .menu-item {
+                font-size: 1.2rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title" id="title">KUNDENHOTLINE</h1>
+        <div class="menu" id="menu">
+            <ul class="menu-list">
+                <li class="menu-item">Impressum</li>
+                <li class="menu-item">Filmstube</li>
+                <li class="menu-item">Über mich</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.getElementById('title');
+            const menu = document.getElementById('menu');
+            const body = document.body;
+            
+            // Split the title into individual letters
+            const text = title.textContent;
+            title.innerHTML = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = text[i];
+                span.style.animation = `float 3s ease-in-out ${i * 0.1}s infinite alternate`;
+                title.appendChild(span);
+                
+                // Add space after each letter except the last one
+                if (i < text.length - 1) {
+                    title.appendChild(document.createTextNode('\u00A0'));
+                }
+            }
+            
+            // Add click event to toggle menu
+            title.addEventListener('click', () => {
+                body.classList.toggle('blur-effect');
+                menu.classList.toggle('active');
+            });
+            
+            // Add float animation via JavaScript
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0% {
+                        transform: translateY(0);
+                    }
+                    100% {
+                        transform: translateY(-15px);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html> 
